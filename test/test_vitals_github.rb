@@ -1,5 +1,6 @@
 require 'test/unit'
 require './lib/vitals_github.rb'
+require 'httparty'
 
 class VitalsGithub_Test < Test::Unit::TestCase
 
@@ -7,7 +8,7 @@ class VitalsGithub_Test < Test::Unit::TestCase
     vgh = VitalsGithub.new
     
     expected_avg = 7
-    
+
     response = [
       {merged_at:DateTime.new(2016,12,25).to_s, created_at: DateTime.new(2016,12,15).to_s},
       {merged_at:DateTime.new(2016,12,25).to_s, created_at: DateTime.new(2016,12,21).to_s}
