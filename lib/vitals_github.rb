@@ -52,6 +52,6 @@ class VitalsGithub
 end
 
 vgh = VitalsGithub.new
-
+avg = vgh.calculate_avg_pr_life([],1,false)
 puts "Average time in minutes:"
-puts vgh.calculate_avg_pr_life([],1,false)
+puts avg
