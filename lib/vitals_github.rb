@@ -11,7 +11,7 @@ class VitalsGithub
 
   def get_closed(page_num)
     options = {basic_auth: @auth}
-    get_path = @base_uri + "/repos/mdx-dev/platform-api/pulls?state=closed&sort=updated&direction=desc&page=#{page_num}"
+    get_path = @base_uri + "/repos/mdx-dev/platform-api/pulls?state=closed&direction=desc&page=#{page_num}"
     HTTParty.get(get_path, options)
   end
 
