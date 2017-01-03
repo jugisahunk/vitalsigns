@@ -17,4 +17,38 @@ class MathHelper
       return numbers.sort[(numbers.size - 1) / 2]
     end
   end
+
+  def self.calculate_level1_mean(numbers)
+    upper_set = []
+    median = MathHelper.calculate_median(numbers)
+
+    upper_set = numbers.select { |number| number > median }
+    if upper_set.size > 0 then 
+      MathHelper.calculate_mean(upper_set)
+    end
+  end
+
+  def self.calculate_level2_mean(numbers)
+    level1_mean = MathHelper.calculate_level1_mean(numbers)
+ 
+    if level1_mean == nil then return end
+
+    upper_set = numbers.select { |number| number > level1_mean }
+
+    if upper_set.size > 0 then
+      MathHelper.calculate_mean(upper_set)
+    end
+  end
+
+  def self.calculate_level3_mean(numbers)
+    level2_mean = MathHelper.calculate_level2_mean(numbers)
+
+    if level2_mean == nil then return end
+
+    upper_set = numbers.select { |number| number > level2_mean }
+
+    if upper_set.size > 0 then
+      MathHelper.calculate_mean(upper_set)
+    end
+  end
 end

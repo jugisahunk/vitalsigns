@@ -82,4 +82,59 @@ class MathHelper_Test < Test::Unit::TestCase
 
     assert(expected_median == actual_median, "Expected #{expected_median} but got #{actual_median}")
   end
+
+  def test_level1_mean_single_number
+    number_set = [6.6]
+    expected_level1_mean = nil
+
+    actual_level1_mean = MathHelper.calculate_level1_mean(number_set)
+
+    assert(expected_level1_mean == actual_level1_mean, "Expected #{expected_level1_mean} but got #{actual_level1_mean}")
+  end
+
+  def test_level1_mean
+    number_set = [5,6.6,7,1,2,3,4]
+    expected_level1_mean = 6.2
+
+    actual_level1_mean = MathHelper.calculate_level1_mean(number_set)
+
+    assert(expected_level1_mean == actual_level1_mean, "Expected #{expected_level1_mean} but got #{actual_level1_mean}")
+  end
+
+  def test_level2_mean_single_number
+    number_set = [6.6]
+    expected_level2_mean = nil
+
+    actual_level2_mean = MathHelper.calculate_level2_mean(number_set)
+
+    assert(expected_level2_mean == actual_level2_mean, "Expected #{expected_level2_mean} but got #{actual_level2_mean}")
+  end
+
+  def test_level2_mean
+    number_set = [1,7,8,9,10,11,2,3,4,5,6.6] #66.6
+    expected_level2_mean = 10.5
+
+    actual_level2_mean = MathHelper.calculate_level2_mean(number_set)
+
+    assert(expected_level2_mean == actual_level2_mean, "Expected #{expected_level2_mean} but got #{actual_level2_mean}")
+  end
+
+  def test_level3_mean_single_number
+    number_set = [6.6]
+    expected_level3_mean = nil
+
+    actual_level3_mean = MathHelper.calculate_level3_mean(number_set)
+
+    assert(expected_level3_mean == actual_level3_mean, "Expected #{expected_level3_mean} but got #{actual_level3_mean}")
+  end
+
+  def test_level3_mean
+    number_set = [1,7,8,9,10,11,2,3,4,5,6.6,56,89] 
+    expected_level3_mean = 89
+
+    actual_level3_mean = MathHelper.calculate_level3_mean(number_set)
+
+    assert(expected_level3_mean == actual_level3_mean, "Expected #{expected_level3_mean} but got #{actual_level3_mean}")
+  end
+
 end
