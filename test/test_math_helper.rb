@@ -1,5 +1,5 @@
 require 'test/unit'
-require_relative 'math_helper.rb'
+require './lib/math_helper.rb'
 
 class MathHelper_Test < Test::Unit::TestCase
   def test_mean_single_number
