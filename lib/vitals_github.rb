@@ -55,25 +55,16 @@ class VitalsGithub
     return get_pr_lifetimes(pr_lifetimes, page_num += 1, false)
   end
 
-  def do_it()
-    vgh = VitalsGithub.new
-    pr_lifetimes = vgh.get_pr_lifetimes([],1,false)
+  vgh = VitalsGithub.new
 
-    puts "Average times in minutes:"
-    puts "Mean: #{MathHelper.calculate_mean(pr_lifetimes)}"
-    puts "Median: #{MathHelper.calculate_median(pr_lifetimes)}"
-    puts "Lev1 mean: #{MathHelper.calculate_level1_mean(pr_lifetimes)}"
-    puts "Lev2 mean: #{MathHelper.calculate_level2_mean(pr_lifetimes)}"
-    puts "Lev3 mean: #{MathHelper.calculate_level3_mean(pr_lifetimes)}"
+  pr_lifetimes = vgh.get_pr_lifetimes([],1,false)
 
-    output = []
-    output <<  "Average times in minutes:"
-    output <<  "Mean: #{MathHelper.calculate_mean(pr_lifetimes)}"
-    output <<  "Median: #{MathHelper.calculate_median(pr_lifetimes)}"
-    output <<  "Lev1 mean: #{MathHelper.calculate_level1_mean(pr_lifetimes)}"
-    output <<  "Lev2 mean: #{MathHelper.calculate_level2_mean(pr_lifetimes)}"
-    output <<  "Lev3 mean: #{MathHelper.calculate_level3_mean(pr_lifetimes)}"
+  puts "Average times in minutes:"
+  puts "Mean: #{MathHelper.calculate_mean(pr_lifetimes)}"
+  puts "Median: #{MathHelper.calculate_median(pr_lifetimes)}"
+  puts "Lev1 mean: #{MathHelper.calculate_level1_mean(pr_lifetimes)}"
+  puts "Lev2 mean: #{MathHelper.calculate_level2_mean(pr_lifetimes)}"
+  puts "Lev3 mean: #{MathHelper.calculate_level3_mean(pr_lifetimes)}"
+  puts "Sample std dev: #{MathHelper.calculate_sample_std_dev(pr_lifetimes)}"
 
-    output
-  end
 end

@@ -51,4 +51,23 @@ class MathHelper
       MathHelper.calculate_mean(upper_set)
     end
   end
+
+  def self.calculate_sample_std_dev(numbers)
+    if(numbers.count == 1 and numbers[0] == 0) then
+      return Float::NAN
+    end
+
+    mean = calculate_mean(numbers)
+
+    x = 0
+
+    numbers.each do |number|
+        x = x + ((Float(number) - Float(mean)) ** 2)
+    end
+
+    sample_variance = x / (numbers.count - 1)
+    sample_std_dev = Math.sqrt(sample_variance)
+
+    sample_std_dev.round(5) 
+  end
 end

@@ -20,6 +20,15 @@ class MathHelper_Test < Test::Unit::TestCase
     assert(expected_mean == actual_mean, "Expected #{expected_mean} but got #{actual_mean}")
   end
 
+  def test_mean_avg_1_to_100
+    number_set = [*1..100]
+    expected_mean = 50.5
+
+    actual_mean = MathHelper.calculate_mean(number_set)
+
+    assert(expected_mean == actual_mean, "Expected #{expected_mean} but got #{actual_mean}")
+  end
+
   def test_median_single_number
     number_set = [1]
     expected_median = 1
@@ -137,4 +146,21 @@ class MathHelper_Test < Test::Unit::TestCase
     assert(expected_level3_mean == actual_level3_mean, "Expected #{expected_level3_mean} but got #{actual_level3_mean}")
   end
 
+  def test_variance_for_zero_returns_NaN
+    number_set = [0]
+
+    actual_variance = MathHelper.calculate_sample_std_dev(number_set)
+
+    assert(actual_variance.nan?, "Expected NaN but got #{actual_variance}")
+  end
+
+  def test_sample_std_dev_for_1_100_correctly
+    number_set = [*1..100]
+    expected_sample_std_dev = 29.01149
+
+    actual_sample_std_dev = MathHelper.calculate_sample_std_dev(number_set)
+
+    assert(expected_sample_std_dev == actual_sample_std_dev, "Expected #{expected_sample_std_dev} but got #{actual_sample_std_dev}")
+  end
+  
 end
