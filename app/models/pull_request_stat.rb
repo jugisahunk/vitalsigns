@@ -35,7 +35,7 @@ class PullRequestStat
         created = DateTime.strptime(record["created_at"])
         merged = DateTime.strptime(record["merged_at"])
         mins = (merged - created).to_f * 60 * 24
-        pr_lifetimes << mins
+        pr_lifetimes << {:merged_at => merged, :life_time => mins}
 
         #log_pr_info(created, merged, mins)
 
@@ -56,14 +56,18 @@ class PullRequestStat
 
   def get_pr_stats 
     pr_lifetimes = get_pr_lifetimes([],1,false)
+    pr_lifespans = []
+    pr_lifetimes.each do |life_time|
+        pr_lifespans << life_time[:life_time]
+    end
 
     pr_stats = {
-        mean: PullRequestStat.calculate_mean(pr_lifetimes),
-        median: PullRequestStat.calculate_median(pr_lifetimes),
-        lev1_mean: PullRequestStat.calculate_level1_mean(pr_lifetimes),
-        lev2_mean: PullRequestStat.calculate_level2_mean(pr_lifetimes),
-        lev3_mean: PullRequestStat.calculate_level3_mean(pr_lifetimes),
-        sample_std_dev: PullRequestStat.calculate_sample_std_dev(pr_lifetimes)
+        mean: PullRequestStat.calculate_mean(pr_lifespans),
+        median: PullRequestStat.calculate_median(pr_lifespans),
+        lev1_mean: PullRequestStat.calculate_level1_mean(pr_lifespans),
+        lev2_mean: PullRequestStat.calculate_level2_mean(pr_lifespans),
+        lev3_mean: PullRequestStat.calculate_level3_mean(pr_lifespans),
+        sample_std_dev: PullRequestStat.calculate_sample_std_dev(pr_lifespans)
     }
 
     pr_stats
