@@ -1,9 +1,7 @@
-require './lib/vitals_github.rb'
 
 class WelcomeController < ApplicationController
   def index
-    vgh = VitalsGithub.new
-    @greeting = vgh.do_it()
-    puts @greeting
+    pr_stats = PullRequestStat.new()
+    @stats = pr_stats.get_pr_stats()
   end
 end

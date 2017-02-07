@@ -54,18 +54,19 @@ class PullRequestStat
     return get_pr_lifetimes(pr_lifetimes, page_num += 1, false)
   end
 
-  def get_pr_stats do
-    vgh = VitalsGithub.new
+  def get_pr_stats 
+    pr_lifetimes = get_pr_lifetimes([],1,false)
 
-    pr_lifetimes = vgh.get_pr_lifetimes([],1,false)
+    pr_stats = {
+        mean: PullRequestStat.calculate_mean(pr_lifetimes),
+        median: PullRequestStat.calculate_median(pr_lifetimes),
+        lev1_mean: PullRequestStat.calculate_level1_mean(pr_lifetimes),
+        lev2_mean: PullRequestStat.calculate_level2_mean(pr_lifetimes),
+        lev3_mean: PullRequestStat.calculate_level3_mean(pr_lifetimes),
+        sample_std_dev: PullRequestStat.calculate_sample_std_dev(pr_lifetimes)
+    }
 
-    puts "Average times in minutes:"
-    puts "Mean: #{MathHelper.calculate_mean(pr_lifetimes)}"
-    puts "Median: #{MathHelper.calculate_median(pr_lifetimes)}"
-    puts "Lev1 mean: #{MathHelper.calculate_level1_mean(pr_lifetimes)}"
-    puts "Lev2 mean: #{MathHelper.calculate_level2_mean(pr_lifetimes)}"
-    puts "Lev3 mean: #{MathHelper.calculate_level3_mean(pr_lifetimes)}"
-    puts "Sample std dev: #{MathHelper.calculate_sample_std_dev(pr_lifetimes)}"
+    pr_stats
   end
 
   def self.calculate_mean(numbers)
@@ -89,35 +90,35 @@ class PullRequestStat
 
   def self.calculate_level1_mean(numbers)
     upper_set = []
-    median = MathHelper.calculate_median(numbers)
+    median = PullRequestStat.calculate_median(numbers)
 
     upper_set = numbers.select { |number| number > median }
     if upper_set.size > 0 then 
-      MathHelper.calculate_mean(upper_set)
+      PullRequestStat.calculate_mean(upper_set)
     end
   end
 
   def self.calculate_level2_mean(numbers)
-    level1_mean = MathHelper.calculate_level1_mean(numbers)
+    level1_mean = PullRequestStat.calculate_level1_mean(numbers)
  
     if level1_mean == nil then return end
 
     upper_set = numbers.select { |number| number > level1_mean }
 
     if upper_set.size > 0 then
-      MathHelper.calculate_mean(upper_set)
+      PullRequestStat.calculate_mean(upper_set)
     end
   end
 
   def self.calculate_level3_mean(numbers)
-    level2_mean = MathHelper.calculate_level2_mean(numbers)
+    level2_mean = PullRequestStat.calculate_level2_mean(numbers)
 
     if level2_mean == nil then return end
 
     upper_set = numbers.select { |number| number > level2_mean }
 
     if upper_set.size > 0 then
-      MathHelper.calculate_mean(upper_set)
+      PullRequestStat.calculate_mean(upper_set)
     end
   end
 
