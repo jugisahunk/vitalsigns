@@ -1,7 +1,18 @@
 $(function(){
-    function create_pr_stats_chart(){
+    $('#repositories').change(function(){
+        var selected_repo_name = get_selected_repo();
+
+        create_pr_stats_chart(selected_repo_name);
+        show_chart_stats(selected_repo_name); 
+    });
+
+    function get_selected_repo(){
+        return $('#repositories option:selected').val();
+    }
+  
+    function create_pr_stats_chart(repo_name){
         jQuery.getJSON(
-            "/pr_stats/get_pr_lifetimes",
+            "/pr_stats/" + repo_name + "/lifetimes",
             null,
             on_get_pr_lifetimes_success
         );
@@ -33,11 +44,13 @@ $(function(){
                     }
                 }
         });
+
+        show_chart_stats(selected_repo_name);
     }
 
-    function show_chart_stats(){
+    function show_chart_stats(repo_name){
         jQuery.getJSON(
-            "/pr_stats/get_pr_stats",
+            "/pr_stats/" + repo_name + "/stats",
             null,
             on_get_pr_stats_success
         );        

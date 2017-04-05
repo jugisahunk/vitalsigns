@@ -3,15 +3,16 @@ require 'httparty'
 class PullRequestStat
   include HTTParty
 
-  def initialize()
+  def initialize(repo_name)
     config = YAML.load(File.read('config/credentials.yml'))
     @auth = {username: config['username'], password: config['password']}
     @base_uri = 'https://api.github.com'
+    @repo_name = repo_name
   end
 
   def get_closed(page_num)
     options = {basic_auth: @auth}
-    get_path = @base_uri + "/repos/mdx-dev/platform-api/pulls?state=closed&direction=desc&page=#{page_num}"
+    get_path = @base_uri + "/repos/mdx-dev/#{@repo_name}/pulls?state=closed&direction=desc&page=#{page_num}"
     HTTParty.get(get_path, options)
   end  
 
